@@ -1,0 +1,89 @@
+{% extends "base.html" %}
+{% block title %}Nuevo Reporte | DocuSolution{% endblock %}
+{% block content %}
+<form method="POST" class="row g-3">
+
+  <!-- Información del cliente -->
+  <h5 class="mt-3">Información del cliente</h5>
+  <div class="col-md-6">
+    <label class="form-label">Cliente</label>
+    <input name="cliente" class="form-control" required>
+  </div>
+  <div class="col-md-6">
+    <label class="form-label">Contacto</label>
+    <input name="contacto" class="form-control">
+  </div>
+  <div class="col-12">
+    <label class="form-label">Dirección</label>
+    <input name="direccion" class="form-control">
+  </div>
+
+  <!-- Información de la máquina -->
+  <h5 class="mt-4">Información de la máquina</h5>
+  <div class="col-md-4">
+    <label class="form-label">Modelo</label>
+    <input name="modelo" class="form-control" required>
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Serie</label>
+    <input name="serie" class="form-control">
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Último contador B&N</label>
+    <input name="contador_bn" type="number" class="form-control">
+  </div>
+
+  <!-- Motivo de visita -->
+  <h5 class="mt-4">Motivo de visita</h5>
+  {% for item in [
+      'Banda de ADF', 'Banda de transferencia','Desecho de tóner',
+      'Gomas de alimentación','Sistema óptico','Limpieza interna',
+      'Niveles de tóner','Módulos de cilindro','Unidad fusora',
+      'Limpieza externa','Patro de colores','Ajuste de calibración',
+      'Protector','Limpieza del láser','Verificación de toma eléctrica'] %}
+    <div class="form-check col-md-4">
+      <input class="form-check-input" type="checkbox" name="motivos" value="{{item}}" id="{{item}}">
+      <label class="form-check-label" for="{{item}}">{{ item }}</label>
+    </div>
+  {% endfor %}
+
+  <!-- Diagnóstico -->
+  <h5 class="mt-4">Causa</h5>
+  <textarea name="causa" class="form-control" rows="2"></textarea>
+
+  <h5 class="mt-3">Acción realizada</h5>
+  <textarea name="accion" class="form-control" rows="2"></textarea>
+
+  <!-- Toner -->
+  <h5 class="mt-4">Niveles de tóner</h5>
+  {% for color in ['Cyan','Magenta','Negro','Amarillo'] %}
+    <div class="col-md-3">
+      <label class="form-label">{{color}}</label>
+      <select class="form-select" name="toner_{{color|lower}}">
+        <option value="">--</option>
+        <option>25 %</option><option>50 %</option>
+        <option>75 %</option><option>100 %</option>
+      </select>
+    </div>
+  {% endfor %}
+
+  <!-- Registro -->
+  <h5 class="mt-4">Registro de visita</h5>
+  <div class="col-md-4">
+    <label class="form-label">Hora de entrada</label>
+    <input name="hora_entrada" type="time" class="form-control">
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Hora de salida</label>
+    <input name="hora_salida" type="time" class="form-control">
+  </div>
+  <div class="col-md-4">
+    <label class="form-label">Técnico</label>
+    <input name="tecnico" class="form-control" required>
+  </div>
+
+  <div class="col-12 text-end mt-4">
+    <button class="btn btn-primary px-4">Guardar</button>
+  </div>
+</form>
+{% endblock %}
